@@ -89,7 +89,7 @@
                         </goals>
                         <phase>initialize</phase>
                         <configuration>
-                            <nodeVersion>v14.17.1</nodeVersion>
+                            <nodeVersion>v16.3.0</nodeVersion>
                         </configuration>
                     </execution>
                     <!-- Install all project dependencies -->
