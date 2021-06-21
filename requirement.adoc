@@ -1,0 +1,9 @@
+- Vue
+- Typescript
+- Tailwind
+- parceljs (wrapper atour de webpack)
+
+- vuex
+- router
+
+- i18n
