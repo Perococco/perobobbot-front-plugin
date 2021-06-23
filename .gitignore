@@ -2,3 +2,5 @@ target/
 build/
 *.iml
 .idea
+node_modules/
+dist/
