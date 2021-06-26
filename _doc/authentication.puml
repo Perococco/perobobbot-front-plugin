@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:load page;
+if (jwt in localeStorage) then (true)
+  :copy token from localeStorage\nto SessionStorage;
+endif
+
+if (jwt in SessionStorage) then (true)
+    :call ;
+    if (call GetCurrentUser) then (call succeeded)
+        :setup UserStore with result;
+    else
+        :clear UserStore Auth;
+        :clear JWT from session and locale storage;
+    endif
+endif
+
+
+
+stop
+
+@enduml
