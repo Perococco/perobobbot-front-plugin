@@ -1,11 +1,17 @@
 import {createRouter, createWebHistory, Router} from 'vue-router'
 import Home from '../components/Home.vue'
 import Login from '../components/Login.vue'
-import Secured from '../components/Secured.vue'
+import Dashboard from '../components/Dashboad.vue'
 import store, {Namespaces} from "../store";
 import {UserGetters} from "../store/modules/user/type";
 import {JWT_TOKEN_KEY} from "../constants";
 import {retrieveCurrentUser} from "../auth";
+
+export enum Routes {
+    HOME= "/",
+    LOGIN="/login",
+    DASHBOARD="/dashboard"
+}
 
 declare module 'vue-router' {
     interface RouteMeta {
@@ -17,21 +23,21 @@ declare module 'vue-router' {
 
 const routes = [
     {
-        path: '/',
+        path: Routes.HOME,
         name: 'Home',
         component: Home,
         meta: {requiresAuth: false}
     },
     {
-        path: '/login',
+        path: Routes.LOGIN,
         name: 'Login',
         component: Login,
         meta: {requiresAuth: false}
     },
     {
-        path: '/secured',
-        name: 'Secured',
-        component: Secured,
+        path: Routes.DASHBOARD,
+        name: 'Dashboard',
+        component: Dashboard,
         meta: {requiresAuth: true}
     },
 ]

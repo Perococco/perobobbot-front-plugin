@@ -24,9 +24,9 @@ USER = 'USER'
 }
 
 export interface SimpleUser {
-  deactivated: boolean;
-  locale: string;
-  login: string;
-  roles: RoleKind[];
+    deactivated: boolean
+    locale: string
+    login: string
+    roles: RoleKind[]
 }
 

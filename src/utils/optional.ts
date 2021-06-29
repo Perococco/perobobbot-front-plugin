@@ -1,3 +1,5 @@
+import {Pair} from "@/utils/Pair";
+
 export {Optional}
 
 
@@ -8,6 +10,13 @@ class Optional<T> {
 
     constructor(value?: T) {
         this.value = value;
+    }
+
+    public filter(filter:(t:T) => boolean):Optional<T> {
+        if (this.value == undefined || !filter.apply(this.value)) {
+            return Optional.Empty;
+        }
+        return this;
     }
 
     public map<U>(mapper:(t:T) => U|undefined):Optional<U> {
@@ -57,6 +66,13 @@ class Optional<T> {
         }
     }
 
+
+    public compose<U>(other:Optional<U>):Optional<Pair<T,U>> {
+        if (this.isPresent() && other.isPresent()) {
+            return Optional.of(new Pair(this.value, other.value));
+        }
+        return Optional.empty();
+    }
 
     static of<T>(value:T):Optional<T> {
         return new Optional<T>(value);

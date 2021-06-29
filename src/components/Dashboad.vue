@@ -1,5 +1,5 @@
 <template>
-  <div>Hello "{{userTest?.login}}"</div>
+  <div>Hello "{{user?.login}}"</div>
 </template>
 
 <script lang="ts">
@@ -12,18 +12,10 @@ import {SecurityController} from "../api/rest-controller";
 
 const UserNamespace = namespace(Namespaces.USER);
 
-const securityController = new SecurityController();
-
 @Options({})
 export default class Secured extends Vue {
 
   @UserNamespace.Getter(UserGetters.USER) user:SimpleUser | undefined;
-
-  userTest:SimpleUser|undefined = ""
-
-  mounted() {
-    securityController.getCurrentUser().then(s => this.userTest = s,r => console.log("failed "+r))
-  }
 
 }
 </script>

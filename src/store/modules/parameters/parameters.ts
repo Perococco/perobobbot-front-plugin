@@ -8,8 +8,8 @@ import {
     SetLocaleParameter
 } from "./types";
 import {Module} from "vuex";
-import RootState from "../../root-state";
-import {I18n} from "vue-i18n";
+import RootState from "@/store/root-state";
+import {ExportedGlobalComposer, I18n, VueI18n} from "vue-i18n";
 import {loadLocaleMessages, retrieveAvailableLocales, setI18nLanguage} from "../../../i18n/i18nTools";
 
 const ParameterModule: Module<ParametersState, RootState> = {
@@ -57,7 +57,7 @@ const ParameterModule: Module<ParametersState, RootState> = {
             context.commit(ParametersMutations.SET_CURRENT_LOCALE, locale)
         },
 
-        async [ParametersActions.INITIALIZE_I18N](context: ParamsActionContext, i18n: I18n) {
+        async [ParametersActions.INITIALIZE_I18N](context: ParamsActionContext, i18n: VueI18n |  ExportedGlobalComposer) {
             const availableLocales = await retrieveAvailableLocales();
             context.commit(ParametersMutations.SET_LOCALE_INFOS, availableLocales);
             //todo retrieve previously selected locale from localStorage.

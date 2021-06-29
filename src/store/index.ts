@@ -1,8 +1,8 @@
 import {createStore} from 'vuex'
 
-import RootState from '../store/root-state'
-import UserModule from "./modules/user/user";
-import Parameters from "./modules/parameters/parameters";
+import RootState from '@/store/root-state'
+import UserModule from "@/store/modules/user/user";
+import Parameters from "@/store/modules/parameters/parameters";
 
 
 export enum Namespaces {

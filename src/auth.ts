@@ -1,13 +1,12 @@
-import axios, {AxiosResponse} from 'axios'
-import { JWT_TOKEN_KEY } from './constants'
-import { SecurityController } from './api/rest-controller'
-import { JwtInfo } from './api/security-com'
-import store, { Namespaces } from './store'
-import { UserActions } from './store/modules/user/type'
-import router from "./router";
-import {Router} from "vue-router";
-const securityController = new SecurityController()
+import axios, { AxiosResponse } from 'axios'
+import { JWT_TOKEN_KEY } from '@/constants'
+import { SecurityController } from '@/api/rest-controller'
+import { JwtInfo } from '@/api/security-com'
+import store, { Namespaces } from '@/store'
+import { UserActions } from '@/store/modules/user/type'
+import { Router } from 'vue-router'
 
+const securityController = new SecurityController()
 function persistJwtToken(jwt: JwtInfo, rememberMe: boolean) {
     sessionStorage.setItem(JWT_TOKEN_KEY, jwt.token)
 
@@ -28,24 +27,25 @@ function setupAxiosHeader() {
     })
 }
 
-function setupAxios403(router:Router) {
+function setupAxios403(router: Router) {
     axios.interceptors.response.use(
         (resp) => resp,
         (error) => {
             if (rejectedOnFailedAuthentication(error.response)) {
-                clearAllJwtTokens();
-                router.push("/login")
+                clearAllAuthenticationInformation().then((_) =>
+                    router.push('/login')
+                )
             }
-            return error;
+            return error
         }
     )
 }
-function rejectedOnFailedAuthentication(response:AxiosResponse):boolean {
-    return response.status == 403;
+
+function rejectedOnFailedAuthentication(response: AxiosResponse): boolean {
+    return response.status == 403
 }
 
-
-function initializeAuth(router:Router) {
+function initializeAuth(router: Router) {
     setupAxiosHeader()
     setupAxios403(router)
     copyLocalToSessionStorage()
@@ -67,15 +67,19 @@ async function retrieveCurrentUser(): Promise<boolean> {
                 return Promise.resolve(true)
             },
             async (reason) => {
-                await store.dispatch(
-                    Namespaces.USER + '/' + UserActions.CLEAR_AUTHENTICATION
-                )
-                clearAllJwtTokens()
+                await clearAllAuthenticationInformation()
                 return Promise.resolve(false)
             }
         )
     }
     return Promise.resolve(false)
+}
+
+async function clearAllAuthenticationInformation() {
+    clearAllJwtTokens()
+    return store.dispatch(
+        Namespaces.USER + '/' + UserActions.CLEAR_AUTHENTICATION
+    )
 }
 
 function jwtIsPresentInSessionStorage() {
