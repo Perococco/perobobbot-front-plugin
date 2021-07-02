@@ -1,5 +1,5 @@
 import {ActionContext} from "vuex";
-import RootState from "../../root-state";
+import RootState from "@/store/root-state";
 import {VueI18n} from "vue-i18n";
 
 

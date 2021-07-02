@@ -248,6 +248,16 @@ export class TokenController {
         }
         return axios(config).then((res) => res.data)
     }
+
+    public refreshUserToken(tokenId: string): Promise<RestUserToken> {
+        const url = new URL('/api/tokens/' + tokenId + '', this.baseURL)
+
+        const config: AxiosRequestConfig = {
+            method: 'put',
+            url: url.toString(),
+        }
+        return axios(config).then((res) => res.data)
+    }
 }
 
 export class UserController {

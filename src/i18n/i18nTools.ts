@@ -8,7 +8,7 @@ export async function retrieveAvailableLocales(): Promise<string[]> {
     return i18nController.getAvailableLanguageTags();
 }
 
-export function setupI18n(options:I18nOptions = {locale: 'en'}) {
+export function setupI18n(options:I18nOptions = {locale: 'en'}):VueI18n {
     const i18n:VueI18n = createI18n(options) as unknown as VueI18n
     setI18nLanguage(i18n, options.locale)
     return i18n

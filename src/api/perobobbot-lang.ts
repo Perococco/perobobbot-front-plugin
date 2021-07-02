@@ -1,62 +1,75 @@
+
 export interface Bot {
-    id: string
-    name: string
-    ownerLogin: string
+  id: string;
+  name: string;
+  owner_login: string;
 }
 
 export enum IterationCommand {
-    CONTINUE = 'CONTINUE',
-    STOP = 'STOP',
+CONTINUE = 'CONTINUE',
+STOP = 'STOP'
 }
 
 export enum Nil {
-    NIL = 'NIL',
+NIL = 'NIL'
 }
 
 export enum OS {
-    LINUX = 'LINUX',
-    POSIX_UNIX = 'POSIX_UNIX',
-    WINDOWS = 'WINDOWS',
-    MACOS = 'MACOS',
-    UNKNOWN = 'UNKNOWN',
+LINUX = 'LINUX',
+POSIX_UNIX = 'POSIX_UNIX',
+WINDOWS = 'WINDOWS',
+MACOS = 'MACOS',
+UNKNOWN = 'UNKNOWN'
 }
 
 export enum OSInfo {
-    INSTANCE = 'INSTANCE',
+INSTANCE = 'INSTANCE'
 }
 
 export enum Platform {
-    TWITCH = 'TWITCH',
-    LOCAL = 'LOCAL',
+TWITCH = 'TWITCH',
+LOCAL = 'LOCAL'
 }
 
 export enum PluginType {
-    SECONDARY = 'SECONDARY',
-    EXTENSION = 'EXTENSION',
-    PRIMARY = 'PRIMARY',
-    FRONT_FX = 'FRONT_FX',
+SECONDARY = 'SECONDARY',
+EXTENSION = 'EXTENSION',
+PRIMARY = 'PRIMARY',
+FRONT_FX = 'FRONT_FX'
 }
 
 export enum PointType {
-    CREDIT = 'CREDIT',
+CREDIT = 'credit'
 }
 
 export enum Role {
-    THE_BOSS = 'THE_BOSS',
-    ADMINISTRATOR = 'ADMINISTRATOR',
-    TRUSTED_USER = 'TRUSTED_USER',
-    STANDARD_USER = 'STANDARD_USER',
-    ANY_USER = 'ANY_USER',
+THE_BOSS = 'THE_BOSS',
+ADMINISTRATOR = 'ADMINISTRATOR',
+TRUSTED_USER = 'TRUSTED_USER',
+STANDARD_USER = 'STANDARD_USER',
+ANY_USER = 'ANY_USER'
+}
+
+export interface Scope {
+readonly   name: string;
 }
 
 export enum TokenType {
-    CLIENT_TOKEN = 'CLIENT_TOKEN',
-    USER_TOKEN = 'USER_TOKEN',
+CLIENT_TOKEN = 'client_token',
+USER_TOKEN = 'user_token'
 }
 
 export enum TransactionState {
-    PENDING = 'PENDING',
-    CANCELLED = 'CANCELLED',
-    COMPLETED = 'COMPLETED',
-    DETACHED = 'DETACHED',
+PENDING = 'pending',
+CANCELLED = 'cancelled',
+COMPLETED = 'completed',
+DETACHED = 'detached'
 }
+
+export interface ViewerIdentity {
+  id: string;
+  platform: Platform;
+  pseudo: string;
+  viewer_id: string;
+}
+

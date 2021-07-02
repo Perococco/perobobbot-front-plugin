@@ -1,26 +1,25 @@
-
 export interface Credential {
-  login: string;
-  password: string;
+    login: string
+    password: string
 }
 
 export interface JwtInfo {
-  token: string;
-  user: SimpleUser;
+    token: string
+    user: SimpleUser
 }
 
 export enum Operation {
-READ_CREDENTIALS = 'READ_CREDENTIALS'
+    READ_CREDENTIALS = 'READ_CREDENTIALS',
 }
 
 export interface Role {
-  operations: Operation[];
-  roleKind: RoleKind;
+    operations: Operation[]
+    role_kind: RoleKind
 }
 
 export enum RoleKind {
-ADMIN = 'ADMIN',
-USER = 'USER'
+    ADMIN = 'ADMIN',
+    USER = 'USER',
 }
 
 export interface SimpleUser {
@@ -29,4 +28,3 @@ export interface SimpleUser {
     login: string
     roles: RoleKind[]
 }
-

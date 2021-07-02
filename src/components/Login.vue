@@ -23,12 +23,12 @@
 </template>
 
 <script lang="ts">
+
 import {Options, Vue} from "vue-class-component";
 import {namespace} from "s-vuex-class";
 import {Namespaces} from "@/store";
 import {AuthenticationParameters, UserActions} from "@/store/modules/user/type";
 import {SimpleUser} from "@/api/security-com";
-import router from "../router";
 
 import {trimToOptional} from "@/utils/strings";
 
@@ -42,10 +42,6 @@ export default class Login extends Vue {
   errorMessage: string = "";
 
   @UserNamespace.Action(UserActions.PERFORM_AUTHENTICATION) performAuthentication!: (parameter: AuthenticationParameters) => Promise<SimpleUser>;
-
-  private isStringNotBlank(str: string): boolean {
-    return str != null && str.length != 0;
-  }
 
   get formValid(): boolean {
     const login = trimToOptional(this.login);
@@ -65,7 +61,7 @@ export default class Login extends Vue {
   private doLogin(login: string, password: string) {
     this.performAuthentication({login, password, rememberMe: this.rememberMe})
         .then(user => {
-          router.push("/dashboard")
+          this.$router.push("/dashboard")
         })
         .catch(e => {
           this.errorMessage = this.$t("login.failed", "Login Failed");

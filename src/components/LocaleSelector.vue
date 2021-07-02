@@ -9,8 +9,8 @@
 
 <script lang="ts">
 import {Options, Vue} from 'vue-class-component'
-import {Namespaces} from "../store";
-import {ParametersActions, ParametersGetters, SetLocaleParameter} from "../store/modules/parameters/types";
+import {Namespaces} from "@/store";
+import {ParametersActions, ParametersGetters, SetLocaleParameter} from "@/store/modules/parameters/types";
 import {namespace} from "s-vuex-class"
 
 const ParametersNamespace = namespace(Namespaces.PARAMETERS);

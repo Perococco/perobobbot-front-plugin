@@ -1,20 +1,21 @@
 {
   "name": "starter-template",
   "version": "0.0.0",
-  "main": "src/main.js",
+  "main": "src/main.ts",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview"
   },
   "dependencies": {
+    "@heroicons/vue": "^1.0.1",
+    "axios": "^0.21.1",
+    "s-vuex-class": "0.4.1",
     "vue": "^3.0.7",
     "vue-class-component": "^8.0.0-rc.1",
-    "s-vuex-class": "0.4.1",
+    "vue-i18n": "^9.1.6",
     "vue-router": "^4.0.8",
-    "vuex": "^4.0.0",
-    "axios": "^0.21.1",
-    "vue-i18n": "^9.1.6"
+    "vuex": "^4.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.2.2",

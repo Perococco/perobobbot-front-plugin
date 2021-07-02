@@ -5,6 +5,7 @@ import { JwtInfo } from '@/api/security-com'
 import store, { Namespaces } from '@/store'
 import { UserActions } from '@/store/modules/user/type'
 import { Router } from 'vue-router'
+import {Routes} from "@/router";
 
 const securityController = new SecurityController()
 function persistJwtToken(jwt: JwtInfo, rememberMe: boolean) {
@@ -31,18 +32,25 @@ function setupAxios403(router: Router) {
     axios.interceptors.response.use(
         (resp) => resp,
         (error) => {
-            if (rejectedOnFailedAuthentication(error.response)) {
-                clearAllAuthenticationInformation().then((_) =>
-                    router.push('/login')
+            rejectedOnFailedAuthentication(error.response)
+                .then(authFailed => {
+                        if (authFailed) {
+                            return clearAllAuthenticationInformation().then((_) => router.push(Routes.LOGIN))
+                        }
+                    }
                 )
-            }
-            return error
+            throw error
         }
     )
 }
 
-function rejectedOnFailedAuthentication(response: AxiosResponse): boolean {
-    return response.status == 403
+function rejectedOnFailedAuthentication(response: AxiosResponse): Promise<boolean> {
+    if (response.status != 403) {
+        return Promise.resolve(false)
+    }
+    return securityController.getCurrentUser()
+        .then(u => false)
+        .catch(e => true);
 }
 
 function initializeAuth(router: Router) {
@@ -94,4 +102,4 @@ function copyLocalToSessionStorage() {
     }
 }
 
-export { initializeAuth, persistJwtToken, retrieveCurrentUser }
+export { initializeAuth, persistJwtToken, retrieveCurrentUser ,clearAllAuthenticationInformation}

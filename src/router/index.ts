@@ -1,16 +1,33 @@
 import {createRouter, createWebHistory, Router} from 'vue-router'
-import Home from '../components/Home.vue'
-import Login from '../components/Login.vue'
-import Dashboard from '../components/Dashboad.vue'
-import store, {Namespaces} from "../store";
-import {UserGetters} from "../store/modules/user/type";
-import {JWT_TOKEN_KEY} from "../constants";
-import {retrieveCurrentUser} from "../auth";
+import store, {Namespaces} from "@/store";
+import Home from '@/components/Home.vue'
+import Login from '@/components/Login.vue'
+import Dashboard from '@/components/Dashboad.vue'
+import UserHome from '@/components/dashboard/UserHome.vue'
+import TokenManager from '@/components/dashboard/tokens/TokenManager.vue'
+import BotManager from '@/components/dashboard/BotManager.vue'
+import {UserGetters} from "@/store/modules/user/type";
+import {JWT_TOKEN_KEY} from "@/constants";
+import {retrieveCurrentUser} from "@/auth";
 
 export enum Routes {
     HOME= "/",
     LOGIN="/login",
-    DASHBOARD="/dashboard"
+    DASHBOARD="/dashboard",
+}
+
+export enum DashboardRoutes {
+    WELCOME = '',
+    TOKEN_MANAGER = 'token',
+    BOT_MANAGER = 'bot',
+
+}
+
+export function dashboardRoute(child:DashboardRoutes):string {
+    if (child == DashboardRoutes.WELCOME) {
+        return Routes.DASHBOARD;
+    }
+    return Routes.DASHBOARD+"/"+child;
 }
 
 declare module 'vue-router' {
@@ -38,7 +55,22 @@ const routes = [
         path: Routes.DASHBOARD,
         name: 'Dashboard',
         component: Dashboard,
-        meta: {requiresAuth: true}
+        meta: {requiresAuth: true},
+        children: [
+            {
+                path: DashboardRoutes.WELCOME,
+                component: UserHome
+            },
+            {
+                path: 'token',
+                component: TokenManager
+            },
+            {
+                path: DashboardRoutes.BOT_MANAGER,
+                component: BotManager
+            }
+        ],
+
     },
 ]
 
