@@ -23,12 +23,12 @@
 </template>
 
 <script lang="ts">
+import {Namespaces} from "@/store/namespaces";
+import {SimpleUser} from "@/api/security-com";
 
 import {Options, Vue} from "vue-class-component";
 import {namespace} from "s-vuex-class";
-import {Namespaces} from "@/store";
 import {AuthenticationParameters, UserActions} from "@/store/modules/user/type";
-import {SimpleUser} from "@/api/security-com";
 
 import {trimToOptional} from "@/utils/strings";
 

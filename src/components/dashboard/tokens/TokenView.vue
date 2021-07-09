@@ -4,8 +4,8 @@
     <span>{{ token.viewer_identity.platform }}</span>
     <span>{{ expirationDate }}</span>
     <div class="flex flex-row space-x-2">
-      <RefreshIcon class="text-black h-5 w-5" @click="refreshToken()"/>
-      <TrashIcon class="text-red-500 h-5 w-5" @click="trashToken()"/>
+      <Icon type="REFRESH" @click="refreshToken()"/>
+      <Icon type="TRASH" @click="trashToken()"/>
     </div>
   </div>
 </template>
@@ -17,8 +17,9 @@ import {epochToDate} from "@/utils/dates";
 
 import {RefreshIcon, TrashIcon} from '@heroicons/vue/outline'
 import {namespace} from "s-vuex-class";
-import {Namespaces} from "@/store";
+import {Namespaces} from "@/store/namespaces";
 import {TokenActions} from "@/store/modules/tokens/type";
+import Icon from "@/components/icons/Icon.vue";
 
 const TokensNamespace = namespace(Namespaces.TOKENS);
 
@@ -26,7 +27,7 @@ const TokensNamespace = namespace(Namespaces.TOKENS);
   props: {
     token: Object as () => RestUserToken
   },
-  components: {TrashIcon,RefreshIcon}
+  components: {Icon, TrashIcon,RefreshIcon}
 })
 export default class TokenView extends Vue {
 

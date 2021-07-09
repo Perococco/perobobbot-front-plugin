@@ -1,11 +1,12 @@
+import {Namespaces} from "@/store/namespaces";
 import {createRouter, createWebHistory, Router} from 'vue-router'
-import store, {Namespaces} from "@/store";
+import store from "@/store";
 import Home from '@/components/Home.vue'
 import Login from '@/components/Login.vue'
 import Dashboard from '@/components/Dashboad.vue'
 import UserHome from '@/components/dashboard/UserHome.vue'
 import TokenManager from '@/components/dashboard/tokens/TokenManager.vue'
-import BotManager from '@/components/dashboard/BotManager.vue'
+import BotManager from '@/components/dashboard/bots/BotManager.vue'
 import {UserGetters} from "@/store/modules/user/type";
 import {JWT_TOKEN_KEY} from "@/constants";
 import {retrieveCurrentUser} from "@/auth";

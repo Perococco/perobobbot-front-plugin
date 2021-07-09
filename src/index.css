@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*@layer components {*/
+/*    .plus-icon-5 {*/
+/*        @apply text-gray-900 h-5 w-5*/
+/*    }*/
+/*    .trash-icon-5 {*/
+/*        @apply text-red-500 h-5 w-5  m-1*/
+/*    }*/
+/*    .trash-icon-5:hover {*/
+/*        @apply text-red-500 h-6 w-6 m-0*/
+/*    }*/
+/*}*/

@@ -1,13 +1,20 @@
-import axios, { AxiosResponse } from 'axios'
-import { JWT_TOKEN_KEY } from '@/constants'
-import { SecurityController } from '@/api/rest-controller'
-import { JwtInfo } from '@/api/security-com'
-import store, { Namespaces } from '@/store'
-import { UserActions } from '@/store/modules/user/type'
-import { Router } from 'vue-router'
+import {Namespaces} from "@/store/namespaces";
+import axios, {AxiosResponse} from 'axios'
+import {JWT_TOKEN_KEY} from '@/constants'
+import {SecurityController} from '@/api/rest-controller'
+import {JwtInfo} from '@/api/security-com'
+import store from '@/store'
+import {UserActions} from '@/store/modules/user/type'
+import {Router} from 'vue-router'
 import {Routes} from "@/router";
 
+interface Context {
+    internalCall: boolean;
+}
+
 const securityController = new SecurityController()
+const context: Context = {internalCall: false};
+
 function persistJwtToken(jwt: JwtInfo, rememberMe: boolean) {
     sessionStorage.setItem(JWT_TOKEN_KEY, jwt.token)
 
@@ -32,13 +39,20 @@ function setupAxios403(router: Router) {
     axios.interceptors.response.use(
         (resp) => resp,
         (error) => {
+            if (context.internalCall) {
+                throw error;
+            }
+            context.internalCall = true;
             rejectedOnFailedAuthentication(error.response)
                 .then(authFailed => {
                         if (authFailed) {
                             return clearAllAuthenticationInformation().then((_) => router.push(Routes.LOGIN))
                         }
                     }
-                )
+                ).finally(() => {
+                    context.internalCall = false
+                }
+            )
             throw error
         }
     )
@@ -102,4 +116,4 @@ function copyLocalToSessionStorage() {
     }
 }
 
-export { initializeAuth, persistJwtToken, retrieveCurrentUser ,clearAllAuthenticationInformation}
+export {initializeAuth, persistJwtToken, retrieveCurrentUser, clearAllAuthenticationInformation}

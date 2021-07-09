@@ -4,13 +4,8 @@ import RootState from '@/store/root-state'
 import UserModule from "@/store/modules/user/user";
 import Parameters from "@/store/modules/parameters/parameters";
 import Tokens from "@/store/modules/tokens/tokens";
-
-
-export enum Namespaces {
-    USER = 'user',
-    PARAMETERS = 'parameters',
-    TOKENS = 'tokens',
-}
+import BotsModule from "@/store/modules/bots/bots";
+import {Namespaces} from "@/store/namespaces";
 
 
 
@@ -19,6 +14,7 @@ const store = createStore<RootState>({
         [Namespaces.USER]: UserModule,
         [Namespaces.PARAMETERS]: Parameters,
         [Namespaces.TOKENS]: Tokens,
+        [Namespaces.BOTS]: BotsModule
     },
 })
 

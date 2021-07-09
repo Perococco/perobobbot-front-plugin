@@ -1,5 +1,5 @@
 
-package perobobbot.plugin;
+package perobobbot.plugin.dashboard;
 
 import jplugman.api.Requirement;
 import perobobbot.data.service.BotService;

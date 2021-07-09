@@ -27,8 +27,8 @@ INSTANCE = 'INSTANCE'
 }
 
 export enum Platform {
-TWITCH = 'TWITCH',
-LOCAL = 'LOCAL'
+TWITCH = 'Twitch',
+LOCAL = 'Local'
 }
 
 export enum PluginType {
@@ -50,10 +50,6 @@ STANDARD_USER = 'STANDARD_USER',
 ANY_USER = 'ANY_USER'
 }
 
-export interface Scope {
-readonly   name: string;
-}
-
 export enum TokenType {
 CLIENT_TOKEN = 'client_token',
 USER_TOKEN = 'user_token'
@@ -68,6 +64,7 @@ DETACHED = 'detached'
 
 export interface ViewerIdentity {
   id: string;
+  login: string;
   platform: Platform;
   pseudo: string;
   viewer_id: string;

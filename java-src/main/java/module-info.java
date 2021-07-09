@@ -1,8 +1,8 @@
 
 import jplugman.api.Plugin;
-import perobobbot.plugin.MyPlugin;
+import perobobbot.plugin.dashboard.FrontEndPlugin;
 
-module perobobbot.plugin {
+module perobobbot.plugin.dashboard {
     requires static lombok;
 
     requires jplugman.api;
@@ -11,10 +11,11 @@ module perobobbot.plugin {
     requires perobobbot.lang;
     requires perobobbot.overlay.api;
     requires perobobbot.http;
+    requires perobobbot.plugin;
     requires perobobbot.chat.core;
     requires perobobbot.sound;
     requires perobobbot.messaging;
     requires perobobbot.data.service;
 
-    provides Plugin with MyPlugin;
+    provides Plugin with FrontEndPlugin;
 }

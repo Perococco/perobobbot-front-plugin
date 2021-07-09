@@ -1,4 +1,4 @@
-import type {Platform, Scope, ViewerIdentity} from './perobobbot-lang';
+import type {Platform, ViewerIdentity} from './perobobbot-lang';
 
 export interface CreateBotParameters {
   name: string;
@@ -6,7 +6,7 @@ export interface CreateBotParameters {
 
 export interface OAuthProcessParameter {
   platform: Platform;
-  scopes: Scope[];
+  scopes: string[];
 }
 
 export interface RestUserToken {

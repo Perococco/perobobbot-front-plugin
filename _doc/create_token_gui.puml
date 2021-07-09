@@ -1,0 +1,14 @@
+@startsalt
+scale 3
+{
+  {Platform | ^List of Platform^}
+  {^Scopes
+    {/ <b>Predefined | Custom }
+    { Chat }
+    { Admin }
+  }
+  }
+  -------
+  {[Cancel] | [Create]}
+}
+@endsalt

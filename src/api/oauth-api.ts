@@ -26,6 +26,11 @@ USER_MANAGE_BLOCKED_USERS = 'user:manage:blocked_users',
 USER_READ_BLOCKED_USERS = 'user:read:blocked_users',
 USER_READ_BROADCAST = 'user:read:broadcast',
 USER_READ_FOLLOWS = 'user:read:follows',
-USER_READ_SUBSCRIPTIONS = 'user:read:subscriptions'
+USER_READ_SUBSCRIPTIONS = 'user:read:subscriptions',
+CHANNEL_MODERATE = 'channel:moderate',
+CHAT_EDIT = 'chat:edit',
+CHAT_READ = 'chat:read',
+WHISPERS_READ = 'whispers:read',
+WHISPERS_EDIT = 'whispers:edit'
 }
 

@@ -8,21 +8,23 @@ import {
     UserMutations,
     UserState,
 } from './type'
-import { SimpleUser } from '../../../api/security-com'
+import { RoleKind, SimpleUser } from '../../../api/security-com'
 import { SecurityController } from '../../../api/rest-controller'
 import { persistJwtToken } from '../../../auth'
+import { Optional } from '@/utils/optional'
 
 const securityController = new SecurityController()
 
 const UserModule: Module<UserState, RootState> = {
     namespaced: true,
     state: () => ({
-        user: undefined
+        user: undefined,
     }),
 
     getters: {
         [UserGetters.USER]: (state): SimpleUser | undefined => state.user,
         [UserGetters.LOGIN]: (state): string | undefined => state.user?.login,
+        [UserGetters.ADMIN]: (state): boolean  => Optional.ofNullable(state.user).map(isAdmin).orElse(false),
         [UserGetters.AUTHENTICATED]: (state): boolean => state.user != undefined,
     },
 
@@ -31,7 +33,7 @@ const UserModule: Module<UserState, RootState> = {
             state.user = user
         },
         [UserMutations.CLEAR_USER](state) {
-            state.user = undefined;
+            state.user = undefined
         },
     },
 
@@ -53,7 +55,9 @@ const UserModule: Module<UserState, RootState> = {
     },
 }
 
-
+function isAdmin(user:SimpleUser):boolean {
+    return user.roles.includes(RoleKind.ADMIN);
+}
 
 export default UserModule;
 

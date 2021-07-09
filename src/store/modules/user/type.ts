@@ -10,6 +10,7 @@ export interface AuthenticationParameters  {
 
 export enum UserGetters {
     USER= 'user',
+    ADMIN= 'admin',
     LOGIN= 'login',
     AUTHENTICATED= 'authenticated',
 }

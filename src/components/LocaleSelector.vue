@@ -18,9 +18,9 @@ const ParametersNamespace = namespace(Namespaces.PARAMETERS);
 @Options({})
 export default class Dictionary extends Vue {
 
-  @ParametersNamespace.Getter(ParametersGetters.CURRENT_LOCALE) current_locale!: () => string
+  @ParametersNamespace.Getter(ParametersGetters.CURRENT_LOCALE) current_locale!: string
 
-  @ParametersNamespace.Getter(ParametersGetters.AVAILABLE_LOCALES) availableLocales!: () => string[]
+  @ParametersNamespace.Getter(ParametersGetters.AVAILABLE_LOCALES) availableLocales!:string[]
 
   @ParametersNamespace.Action(ParametersActions.SET_CURRENT_LOCALE) setLocale!: (parameter:SetLocaleParameter) => void
 

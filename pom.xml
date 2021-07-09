@@ -68,6 +68,11 @@
         </dependency>
         <dependency>
             <groupId>perobobbot</groupId>
+            <artifactId>perobobbot-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>perobobbot</groupId>
             <artifactId>perobobbot-sound</artifactId>
             <scope>provided</scope>
         </dependency>
@@ -132,7 +137,7 @@
                             <finalName>${archive.name}</finalName>
                             <outputDirectory>./build</outputDirectory>
                             <appendAssemblyId>false</appendAssemblyId>
-                            <descriptors>src/main/assembly/tozip.xml</descriptors>
+                            <descriptors>java-src/main/assembly/tozip.xml</descriptors>
                         </configuration>
                     </execution>
                 </executions>

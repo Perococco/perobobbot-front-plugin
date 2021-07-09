@@ -17,9 +17,9 @@
 </template>
 
 <script lang="ts">
+import {Namespaces} from "@/store/namespaces";
 import {Options, Vue} from "vue-class-component";
 import {namespace} from "s-vuex-class";
-import {Namespaces} from "@/store";
 import {UserGetters} from "@/store/modules/user/type";
 import {SimpleUser} from "@/api/security-com";
 import {clearAllAuthenticationInformation} from "@/auth"

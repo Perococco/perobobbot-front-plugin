@@ -1,0 +1,15 @@
+@startsalt
+scale 3
+{
+  {Platform | ^List of Platform^}
+  {^Scopes
+  {[clear] | [select all] }
+    {[] scope 1 | [] scope2 | [] scope3}
+    {[] scope 4 | [] scope5 | [] scope6}
+    {[] scope 7 | [] scope8 | [] scope9}
+  }
+  -------
+  {[Cancel] | [Create]}
+}
+
+@endsalt

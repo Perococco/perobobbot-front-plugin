@@ -1,0 +1,13 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+'skinparam actorStyle Hollow
+
+(Create a Bot) as (Create)
+(Edit a Bot) as (Edit)
+
+User --> (Create)
+User --> (Edit)
+
+(Edit) --> (Add Credential)
+
+@enduml

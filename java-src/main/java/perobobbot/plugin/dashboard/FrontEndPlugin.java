@@ -1,12 +1,15 @@
-package perobobbot.plugin;
-    
+package perobobbot.plugin.dashboard;
+
 import com.google.common.collect.ImmutableSet;
 import jplugman.api.Plugin;
 import jplugman.api.Requirement;
 import jplugman.api.ServiceProvider;
+import jplugman.api.Version;
 import lombok.NonNull;
 
-public class MyPlugin implements Plugin {
+public class FrontEndPlugin implements Plugin {
+
+    private static final Version VERSION = Version.with("1.0.0");
 
     @Override
     public @NonNull ImmutableSet<Requirement<?>> getRequirements() {
@@ -15,11 +18,11 @@ public class MyPlugin implements Plugin {
 
     @Override
     public @NonNull Class<?> getServiceClass() {
-        throw new RuntimeException("TO IMPLEMENT");
+        return FrontEndConfig.class;
     }
 
     @Override
     public @NonNull Object loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider) {
-        throw new RuntimeException("TO IMPLEMENT");
+        return new FrontEndConfig();
     }
 }
