@@ -22,7 +22,7 @@ public class FrontEndConfig implements WebPlugin {
 
     @Override
     public @NonNull ImmutableList<ResourceLocation> getResourceLocations() {
-        return ImmutableList.of(ResourceLocation.with(CONTEXT+"/**", "classpath:/dashboard-svelte/public/"));
+        return ImmutableList.of(ResourceLocation.with(CONTEXT+"/**", "classpath:/dashboard-vue/public/"));
     }
 
     @Override
@@ -32,6 +32,6 @@ public class FrontEndConfig implements WebPlugin {
 
     @Override
     public @NonNull String getName() {
-        return "Svelte FrontEnd";
+        return "Vue FrontEnd";
     }
 }

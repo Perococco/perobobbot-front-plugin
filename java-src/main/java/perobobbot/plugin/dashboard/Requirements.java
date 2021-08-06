@@ -2,12 +2,10 @@
 package perobobbot.plugin.dashboard;
 
 import jplugman.api.Requirement;
+import perobobbot.data.service.BankService;
 import perobobbot.data.service.BotService;
 import perobobbot.data.service.OAuthService;
 import perobobbot.lang.Instants;
-import perobobbot.lang.Bank;
-import perobobbot.overlay.api.Overlay;
-import perobobbot.sound.SoundResolver;
 import perobobbot.http.WebHookManager;
 import perobobbot.chat.core.IO;
 import perobobbot.lang.StandardInputProvider;
@@ -20,9 +18,7 @@ public class Requirements {
         public static final Requirement<BotService> BOT_SERVICE = new Requirement<>(BotService.class,1);
         public static final Requirement<OAuthService> O_AUTH_SERVICE = new Requirement<>(OAuthService.class,1);
         public static final Requirement<Instants> INSTANTS = new Requirement<>(Instants.class,1);
-        public static final Requirement<Bank> BANK = new Requirement<>(Bank.class,1);
-        public static final Requirement<Overlay> OVERLAY = new Requirement<>(Overlay.class,1);
-        public static final Requirement<SoundResolver> SOUND_RESOLVER = new Requirement<>(SoundResolver.class,1);
+        public static final Requirement<BankService> BANK = new Requirement<>(BankService.class,1);
         public static final Requirement<WebHookManager> WEB_HOOK_MANAGER = new Requirement<>(WebHookManager.class,1);
         public static final Requirement<IO> IO = new Requirement<>(IO.class,1);
         public static final Requirement<StandardInputProvider> STANDARD_INPUT_PROVIDER = new Requirement<>(StandardInputProvider.class,1);

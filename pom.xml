@@ -38,11 +38,6 @@
         </dependency>
         <dependency>
             <groupId>perobobbot</groupId>
-            <artifactId>perobobbot-overlay-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>perobobbot</groupId>
             <artifactId>perobobbot-messaging</artifactId>
             <scope>provided</scope>
         </dependency>
@@ -69,11 +64,6 @@
         <dependency>
             <groupId>perobobbot</groupId>
             <artifactId>perobobbot-plugin</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>perobobbot</groupId>
-            <artifactId>perobobbot-sound</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>

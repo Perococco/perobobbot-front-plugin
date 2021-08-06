@@ -349,11 +349,6 @@
                 <version>2.12.3</version>
             </dependency>
             <dependency>
-                <groupId>perobobbot</groupId>
-                <artifactId>perobobbot-overlay-api</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
                 <groupId>io.projectreactor.netty</groupId>
                 <artifactId>reactor-netty-http</artifactId>
                 <version>1.0.7</version>
@@ -386,11 +381,6 @@
             <dependency>
                 <groupId>perobobbot</groupId>
                 <artifactId>perobobbot-rendering</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>perobobbot</groupId>
-                <artifactId>perobobbot-sound</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
@@ -972,11 +962,6 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-messaging</artifactId>
                 <version>5.3.8</version>
-            </dependency>
-            <dependency>
-                <groupId>perobobbot</groupId>
-                <artifactId>perobobbot-overlay-newtek</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>io.netty</groupId>
