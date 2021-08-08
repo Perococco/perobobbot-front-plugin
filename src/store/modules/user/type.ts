@@ -21,7 +21,8 @@ export enum UserMutations {
 }
 
 export enum UserActions {
-    PERFORM_AUTHENTICATION = 'performAuthentication',
+    PERFORM_AUTHENTICATION_WITH_PASSWORD = 'performAuthenticationWithPassword',
+    PERFORM_AUTHENTICATION_WITH_OPENID = 'performAuthenticationWithOpenId',
     SET_USER= 'setUser',
     CLEAR_AUTHENTICATION= 'clearAuthentication',
 }

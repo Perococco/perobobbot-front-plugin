@@ -8,7 +8,11 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "@heroicons/vue": "^1.0.1",
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-regular-svg-icons": "^5.15.4",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/free-brands-svg-icons": "^5.15.4",
+    "@fortawesome/vue-fontawesome": "prerelease",
     "axios": "^0.21.1",
     "s-vuex-class": "0.4.1",
     "vue": "^3.0.7",

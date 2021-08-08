@@ -15,7 +15,6 @@ import {Options, Vue} from "vue-class-component";
 import type {RestUserToken} from "@/api/rest-com";
 import {epochToDate} from "@/utils/dates";
 
-import {RefreshIcon, TrashIcon} from '@heroicons/vue/outline'
 import {namespace} from "s-vuex-class";
 import {Namespaces} from "@/store/namespaces";
 import {TokenActions} from "@/store/modules/tokens/type";
@@ -27,7 +26,7 @@ const TokensNamespace = namespace(Namespaces.TOKENS);
   props: {
     token: Object as () => RestUserToken
   },
-  components: {Icon, TrashIcon,RefreshIcon}
+  components: {Icon}
 })
 export default class TokenView extends Vue {
 

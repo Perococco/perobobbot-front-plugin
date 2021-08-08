@@ -4,6 +4,11 @@ export interface Credential {
   password: string;
 }
 
+export enum IdentificationMode {
+PASSWORD = 'password',
+OPEN_ID = 'openid'
+}
+
 export interface JwtInfo {
   token: string;
   user: SimpleUser;

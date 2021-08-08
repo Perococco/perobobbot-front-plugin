@@ -1,8 +1,8 @@
 <template>
   <CreateTokenModal v-model:showModal="createInProgress"/>
-  <div class="text-3xl"> User Token Manager</div>
+  <div class="text-3xl">Tokens</div>
   <div>
-    <PlusIcon @click="doCreateToken" class="text-gray-900 h-5 w-5"/>
+    <Icon type="PLUS" size="SIZE_4" @click="doCreateToken" />
   </div>
   <TokenView v-for="token in tokens" :key="token.id" :token="token"/>
 </template>
@@ -12,16 +12,21 @@ import {Namespaces} from "@/store/namespaces";
 import {Options, Vue} from "vue-class-component";
 import {namespace} from "s-vuex-class";
 import type {RestUserToken} from "@/api/rest-com";
-import {PlusIcon} from '@heroicons/vue/outline'
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faPlus} from "@fortawesome/free-solid-svg-icons/faPlus";
+
 import {TokenActions, TokenGetters} from "@/store/modules/tokens/type";
 import TokenView from "@/components/dashboard/tokens/TokenView.vue";
 import CreateTokenModal from "@/components/dashboard/tokens/CreateTokenModal.vue";
+import Icon from "@/components/icons/Icon.vue";
 
+
+library.add(faPlus)
 
 const TokenNamespace = namespace(Namespaces.TOKENS)
 
 @Options({
-  components: {TokenView, CreateTokenModal, PlusIcon}
+  components: {Icon, TokenView, CreateTokenModal}
 })
 export default class TokenManager extends Vue {
 

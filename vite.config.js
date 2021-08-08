@@ -9,14 +9,16 @@ export default defineConfig({
     server: {
         proxy: {
             '/api': {
-                target: 'https://192.168.42.25:8443',
+                target: 'https://localhost:8443',
                 changeOrigin: true,
                 secure: false,
             }
         }
     },
+    base: process.env.NODE_ENV === 'production' ?'./':'/',
     build: {
-        outDir: 'target/classes/dashboard-vue/public'
+        outDir: 'target/classes/dashboard-vue/public',
+        assetsDir: "./assets"
     },
     resolve: {
         alias: {

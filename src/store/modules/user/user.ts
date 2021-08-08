@@ -8,10 +8,12 @@ import {
     UserMutations,
     UserState,
 } from './type'
-import { RoleKind, SimpleUser } from '../../../api/security-com'
+import {JwtInfo, RoleKind, SimpleUser} from '../../../api/security-com'
 import { SecurityController } from '../../../api/rest-controller'
 import { persistJwtToken } from '../../../auth'
 import { Optional } from '@/utils/optional'
+import {Platform} from "@/api/perobobbot-lang";
+import {openOauthUrl, openOauthUrlWithParam} from "@/utils/oauth_opener";
 
 const securityController = new SecurityController()
 
@@ -44,15 +46,23 @@ const UserModule: Module<UserState, RootState> = {
         [UserActions.SET_USER](context: UserContext, user:SimpleUser): void {
             context.commit(UserMutations.SET_USER,user)
         },
-        async [UserActions.PERFORM_AUTHENTICATION](context: UserContext, parameter: AuthenticationParameters): Promise<SimpleUser> {
+        async [UserActions.PERFORM_AUTHENTICATION_WITH_PASSWORD](context: UserContext, parameter: AuthenticationParameters): Promise<SimpleUser> {
             return securityController.signIn({login:parameter.login, password:parameter.password})
-                .then(authInfo => {
-                    persistJwtToken(authInfo, parameter.rememberMe);
-                    context.commit(UserMutations.SET_USER, authInfo.user);
-                    return authInfo.user
-                })
+                .then(jwtToken => handleJwtToken(context,jwtToken,parameter.rememberMe))
+        },
+        async [UserActions.PERFORM_AUTHENTICATION_WITH_OPENID](context: UserContext, platform:Platform): Promise<SimpleUser> {
+            return securityController.oauthWith(platform)
+                .then(oauthInfo => openOauthUrlWithParam(oauthInfo.oauth_uri, oauthInfo.sign_in_id))
+                .then(id => securityController.getOpenIdUser(id))
+                .then(jwtToken => handleJwtToken(context,jwtToken,true))
         }
     },
+}
+
+function handleJwtToken(context: UserContext, jwtToken:JwtInfo, rememberMe:boolean): SimpleUser {
+    persistJwtToken(jwtToken, rememberMe);
+    context.commit(UserMutations.SET_USER, jwtToken.user);
+    return jwtToken.user
 }
 
 function isAdmin(user:SimpleUser):boolean {

@@ -1,12 +1,16 @@
 
 export interface CreateUserParameters {
+  identification: any;
   login: string;
-  password: string;
 }
 
 export interface Extension {
   activated: boolean;
   name: string;
+}
+
+export enum PromotionManager {
+INSTANCE = 'INSTANCE'
 }
 
 export interface UpdateUserParameters {

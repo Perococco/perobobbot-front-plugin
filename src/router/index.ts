@@ -1,5 +1,5 @@
 import {Namespaces} from "@/store/namespaces";
-import {createRouter, createWebHistory, Router} from 'vue-router'
+import {createRouter, createWebHashHistory, createWebHistory, Router} from 'vue-router'
 import store from "@/store";
 import Home from '@/components/Home.vue'
 import Login from '@/components/Login.vue'
@@ -40,6 +40,7 @@ declare module 'vue-router' {
 
 
 const routes = [
+    { path:'/index.html', redirect:'/'},
     {
         path: Routes.HOME,
         name: 'Home',
@@ -76,7 +77,7 @@ const routes = [
 ]
 
 const router:Router = createRouter({
-    history: createWebHistory(),
+    history: createWebHashHistory("/front/"),
     routes,
 })
 

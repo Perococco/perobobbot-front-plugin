@@ -13,7 +13,7 @@ class Optional<T> {
     }
 
     public filter(filter:(t:T) => boolean):Optional<T> {
-        if (this.value == undefined || !filter.apply(this.value)) {
+        if (this.value == undefined || !filter(this.value)) {
             return Optional.Empty;
         }
         return this;

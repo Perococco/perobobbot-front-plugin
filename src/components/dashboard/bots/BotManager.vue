@@ -1,24 +1,31 @@
-<template>
-  <div class="text-3xl">Bot Manager</div>
-  <PlusIcon class="text-gray-900 h-5 w-5" @click="doCreateBot"/>
-  <BotView  v-for="bot in bots" :key="bot.id" :bot="bot"/>
+<template xmlns="http://www.w3.org/1999/html">
+  <div class="text-3xl">Bots</div>
+  <div>
+    <Icon type="PLUS" size="SIZE_4" @click="doCreateBot"/>
+  </div>
+  <BotView v-for="bot in bots" :key="bot.id" :bot="bot"/>
 </template>
 
 <script lang="ts">
 import {Namespaces} from "@/store/namespaces";
 import {Options, Vue} from "vue-class-component";
-import {PlusIcon} from '@heroicons/vue/outline';
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faPlus} from "@fortawesome/free-solid-svg-icons";
+
 import {namespace} from "s-vuex-class";
 import {CreateBotParameters} from "@/api/rest-com";
 import {BotActions, BotGetters} from "@/store/modules/bots/type";
 import {Bot} from "@/api/perobobbot-lang";
 import {Optional} from "@/utils/optional";
 import BotView from "@/components/dashboard/bots/BotView.vue";
+import Icon from "@/components/icons/Icon.vue";
 
 const BotNamespace = namespace(Namespaces.BOTS);
 
+library.add(faPlus)
+
 @Options({
-  components: {BotView, PlusIcon}
+  components: {Icon, BotView}
 })
 export default class BotManager extends Vue {
 
@@ -31,7 +38,7 @@ export default class BotManager extends Vue {
     if (name.isAbsent()) {
       console.error("Could not determined a name not used yet")
     } else {
-      const parameters = {name:name.get()}
+      const parameters = {name: name.get()}
       this.createBot(parameters);
     }
   }

@@ -1,15 +1,20 @@
 <template>
-  <component :is="dynamicComponent" :class="style"></component>
+  <font-awesome-icon :icon="icon" :class="style"/>
 </template>
 
 <script lang="ts">
 import {Options, Vue} from "vue-class-component";
-import {PlusIcon, QuestionMarkCircleIcon, RefreshIcon, TrashIcon} from "@heroicons/vue/outline"
-import {IconMode, IconType} from "@/components/icons/types";
+import {computeStyle, IconMode, IconType} from "@/components/icons/types";
+import {IconSize, IconStyles} from "@/components/icons/types";
+
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faPlus, faQuestionCircle, faTrashAlt, faSyncAlt} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faTrashAlt,faSyncAlt,faPlus,faQuestionCircle)
+
 
 
 @Options({
-  components: {TrashIcon, PlusIcon, RefreshIcon, QuestionMarkCircleIcon},
   props: {
     type: {
       type: String,
@@ -18,34 +23,37 @@ import {IconMode, IconType} from "@/components/icons/types";
     },
     mode: String,
     disabled: Boolean,
-    size: Number,
+    size: {
+      type:String,
+      default: "SIZE_5",
+      enum: IconSize
+    }
   }
 })
-export default class Trash extends Vue {
+export default class Icon extends Vue {
 
   get style() {
-    let color = "grey";
+    let mode;
     if (!this.disabled) {
-      const mode = computeEffectiveMode(this.type, this.mode);
-      color = getTxtColor(mode);
+      mode = computeEffectiveMode(this.type, this.mode);
+    } else {
+      mode = IconMode.NEUTRAL;
     }
-    let s = computeStyle(this.size, color);
-    console.log(s)
-    return s;
+    return computeStyle(this.size, mode);
   }
 
-  get dynamicComponent() {
+  get icon() {
     if (this.type != undefined) {
       switch (this.type) {
         case IconType.TRASH :
-          return TrashIcon;
+          return "trash-alt";
         case IconType.REFRESH :
-          return RefreshIcon;
+          return "sync-alt";
         case IconType.PLUS :
-          return PlusIcon;
+          return "plus";
       }
     }
-    return QuestionMarkCircleIcon;
+    return "question-circle";
   }
 
 
@@ -86,15 +94,8 @@ function computeEffectiveMode(type: IconType, mode: IconMode | undefined): IconM
   return IconMode.WARNING;
 }
 
-function computeStyle(size: number, color: string): string {
-  let s = size??5;
-  return `h-${s} w-${s} text-${color}-400 hover:text-${color}-600`
-}
-
-
 </script>
 
 
 <style scoped>
-
 </style>

@@ -10,19 +10,24 @@ import perobobbot.plugin.WebPlugin;
 @Extension(point = WebPlugin.class, version = "1.0.0")
 public class FrontEndConfig implements WebPlugin {
 
-    public static final String CONTEXT = "/dashboard";
+    public static final String CONTEXT = "/front";
+    public static final String ASSETS = "/assets";
 
     @Override
     public @NonNull ImmutableList<ViewInfo> getViewInformation() {
         return ImmutableList.of(
-                new ViewInfo(CONTEXT,"redirect:"+CONTEXT+"/index.html"),
-                new ViewInfo(CONTEXT+"/","redirect:"+CONTEXT+"/index.html")
+                new ViewInfo(CONTEXT, "redirect:" + CONTEXT + "/index.html"),
+                new ViewInfo(CONTEXT + "/", "redirect:" + CONTEXT + "/index.html")
         );
     }
 
     @Override
     public @NonNull ImmutableList<ResourceLocation> getResourceLocations() {
-        return ImmutableList.of(ResourceLocation.with(CONTEXT+"/**", "classpath:/dashboard-vue/public/"));
+        return ImmutableList.of(
+                ResourceLocation.with(CONTEXT+"/**", "classpath:/dashboard-vue/public/")
+//                ResourceLocation.with(ASSETS+"/**", "classpath:/dashboard-vue/public/front/assets/")
+
+        );
     }
 
     @Override

@@ -1,4 +1,4 @@
-import { Module } from 'vuex'
+import {Module} from 'vuex'
 import {
     TokenActions,
     TokenContext,
@@ -7,8 +7,9 @@ import {
     TokenState,
 } from '@/store/modules/tokens/type'
 import RootState from '@/store/root-state'
-import { OAuthProcessParameter, RestUserToken } from '@/api/rest-com'
-import { TokenController } from '@/api/rest-controller'
+import {OAuthProcessParameter, RestUserToken} from '@/api/rest-com'
+import {TokenController} from '@/api/rest-controller'
+import {openOauthUrl, openOauthUrlWithParam} from "@/utils/oauth_opener";
 
 const tokenController: TokenController = new TokenController()
 
@@ -75,26 +76,14 @@ const TokensModule: Module<TokenState, RootState> = {
             parameter: OAuthProcessParameter
         ): Promise<void> {
             const url = await tokenController.initiateOAuth(parameter)
-            openOauthUrl(url, () => {
-                context.dispatch(TokenActions.REFRESH_TOKENS)
-            })
+            openOauthUrlWithParam(url)
+                .then(() => {
+                    context.dispatch(TokenActions.REFRESH_TOKENS)
+                }, err => console.error("TODO: Fail to create token feedback for the user"));
         },
     },
 }
 
-function openOauthUrl(url: string, callback: () => void) {
-    const win = window.open(url)
-    var interval = window.setInterval(function () {
-        try {
-            if (win == null || win.closed) {
-                window.clearInterval(interval)
-                callback()
-            }
-        } catch (e) {
-            console.error(e)
-        }
-    }, 1000)
-}
 
 export default TokensModule
 

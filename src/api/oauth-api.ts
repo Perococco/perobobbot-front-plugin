@@ -31,6 +31,7 @@ CHANNEL_MODERATE = 'channel:moderate',
 CHAT_EDIT = 'chat:edit',
 CHAT_READ = 'chat:read',
 WHISPERS_READ = 'whispers:read',
-WHISPERS_EDIT = 'whispers:edit'
+WHISPERS_EDIT = 'whispers:edit',
+USER_READ_EMAIL = 'user:read:email'
 }
 

@@ -1,7 +1,7 @@
 import type {AxiosRequestConfig, AxiosResponse} from 'axios';
 import type {CreateUserParameters, Extension, UpdateUserParameters} from './data-com';
-import type {Bot} from './perobobbot-lang';
-import type {CreateBotParameters, OAuthProcessParameter, RestUserToken} from './rest-com';
+import type {Bot, Platform} from './perobobbot-lang';
+import type {CreateBotParameters, OAuthInfo, OAuthProcessParameter, RestUserToken} from './rest-com';
 import type {Credential, JwtInfo, SimpleUser} from './security-com';
 import axios from "axios";
 
@@ -177,6 +177,30 @@ export class SecurityController {
         const config: AxiosRequestConfig = {
             method: 'get',
             url: url.toString()
+        };
+        return axios(config).then(res => res.data);
+    }
+
+    public getOpenIdUser(id: string): Promise<JwtInfo> {
+        const url = new URL('/api/oauth/' + id + '', this.baseURL);
+
+        const config: AxiosRequestConfig = {
+            method: 'get',
+            url: url.toString()
+        };
+        return axios(config).then(res => res.data);
+    }
+
+    public oauthWith(openIdPlatform: Platform): Promise<OAuthInfo> {
+        const url = new URL('/api/oauth', this.baseURL);
+
+        const config: AxiosRequestConfig = {
+            method: 'post',
+            url: url.toString(),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: JSON.stringify(openIdPlatform)
         };
         return axios(config).then(res => res.data);
     }

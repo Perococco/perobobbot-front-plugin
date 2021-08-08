@@ -1,7 +1,7 @@
 <template>
   <div class="float-left flex flex-col justify-between bg-blue-500 h-screen p-4">
     <div class="flex flex-col">  <!-- TOP -->
-      <router-link class="font-bold text-3xl mb-4" :to="userHomeRoute()">{{ user?.login }}</router-link>
+      <router-link class="font-bold text-3xl mb-5" :to="userHomeRoute()">{{ user?.login }}</router-link>
       <router-link :to="tokenRoute()">Tokens</router-link>
       <router-link :to="botRoute()">Bots</router-link>
     </div>
