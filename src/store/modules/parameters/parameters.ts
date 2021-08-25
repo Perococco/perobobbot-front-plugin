@@ -48,8 +48,7 @@ const ParameterModule: Module<ParametersState, RootState> = {
             const loaded = info && info.loaded
 
             if (!loaded) {
-                const messages = await loadLocaleMessages(locale);
-                i18n.setLocaleMessage(locale, messages);
+                const messages = await loadLocaleMessages(i18n,locale);
                 context.commit(ParametersMutations.SET_LOCALE_LOADED, locale);
             }
 

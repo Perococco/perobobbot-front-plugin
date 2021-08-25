@@ -2,8 +2,8 @@
   <div class="float-left flex flex-col justify-between bg-blue-500 h-screen p-4">
     <div class="flex flex-col">  <!-- TOP -->
       <router-link class="font-bold text-3xl mb-5" :to="userHomeRoute()">{{ user?.login }}</router-link>
-      <router-link :to="tokenRoute()">Tokens</router-link>
-      <router-link :to="botRoute()">Bots</router-link>
+      <router-link :to="tokenRoute()">{{$t("tokens.dashboard-link")}}</router-link>
+      <router-link :to="botRoute()">{{$t("bots.dashboard-link")}}</router-link>
     </div>
 
     <div> <!-- Bottom (Je ne sais pas si la div casse le style mais l'idee est d'avoir deux sections) -->

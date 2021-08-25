@@ -1,18 +1,42 @@
 {
-  "Home": "Accueil",
-  "Extensions": "Extensions",
-  "Users": "Utilisateurs",
-  "Bots": "Bots",
-  "Credentials": "Identités",
-  "Logout": "Déconnexion",
-  "Streamer": "Streamer",
-  "Viewer": "Viewer",
-  "SignIn": "Connexion",
-  "Login": "Identifiant",
-  "Disabled": "Désactivé",
-  "Locale": "Langue",
-  "Roles": "Roles",
+  "_lit.Home": "Accueil",
+  "_lit.Extensions": "Extensions",
+  "_lit.Users": "Utilisateurs",
+  "_lit.Bots": "Bots",
+  "_lit.Credentials": "Identités",
+  "_lit.Logout": "Déconnexion",
+  "_lit.Streamer": "Streamer",
+  "_lit.Viewer": "Viewer",
+  "_lit.SignIn": "Connexion",
+  "_lit.Login": "Identifiant",
+  "_lit.Disabled": "Désactivé",
+  "_lit.Locale": "Langue",
+  "_lit.Roles": "Roles",
+  "_lit.or" : "ou",
+  "_lit.Cancel": "Annuler",
+  "_lit.Create": "Créer",
+  "_lit.Platform": "Platforme",
+  "_lit.Scopes": "Scopes",
+  "_lit.Validate": "Valider",
+
+
+  "login.button.login": "Se connecter",
+  "login.openid.twitch-msg": "Continuer avec Twitch",
   "login.Remember_me": "Se souvenir de moi",
   "login.username.placeholder": "Utilisateur",
-  "login.password.placeholder": "Mot de passe"
+  "login.password.placeholder": "Mot de passe",
+
+  "user-home.title": "Accueil",
+  "user-home.placeholder.current-password": "Mot de passe actuel",
+  "user-home.placeholder.new-password": "Nouveau mot de passe",
+  "user-home.placeholder.new-password-repeat": "Répéter le nouveau mot de passe",
+
+  "tokens.title": "Tokens",
+  "tokens.scopes-dialog.button.select-all": "Tout sélectionner",
+  "tokens.scopes-dialog.button.clear": "Effacer",
+
+  "bots.title": "Bots"
+
+
+
 }

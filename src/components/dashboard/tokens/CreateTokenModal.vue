@@ -10,10 +10,10 @@
             </select>
           </div>
           <hr/>
-          <span class="font-bold">Scopes</span>
+          <span class="font-bold">{{$t("_lit.Scopes")}}</span>
           <div class="space-x-2">
-            <button :className="buttonStyle" @click="clearSelection">Clear</button>
-            <button :className="buttonStyle" @click="selectAll">Select All</button>
+            <button :className="buttonStyle" @click="clearSelection">{{$t("tokens.scopes-dialog.button.clear")}}</button>
+            <button :className="buttonStyle" @click="selectAll">{{$t("tokens.scopes-dialog.button.select-all")}}</button>
             <input type="text" v-model="scopeFilter"/>
           </div>
           <div class="h-full flex flex-row content-start flex-wrap overflow-y-scroll">
@@ -27,13 +27,13 @@
           <div class="flex flex-row justify-end space-x-2">
             <button
                 :className="buttonStyle"
-                @click="closeModal">Cancel
+                @click="closeModal">{{$t("_lit.Cancel")}}
             </button>
             <button
                 :className="buttonStyle"
                 :class="{'text-gray-900 font-bold': oauthParameter.isAbsent(), 'text-blue-500 hover:text-blue-700  font-bold': oauthParameter.isPresent()}"
                 :disabled="oauthParameter.isAbsent()"
-                @click="doCreateToken">Create
+                @click="doCreateToken">{{$t("_lit.Create")}}
             </button>
           </div>
         </div>

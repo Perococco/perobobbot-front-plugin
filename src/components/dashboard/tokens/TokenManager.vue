@@ -1,6 +1,6 @@
 <template>
   <CreateTokenModal v-model:showModal="createInProgress"/>
-  <div class="text-3xl">Tokens</div>
+  <div class="text-3xl">{{$t('tokens.title')}}</div>
   <div>
     <Icon type="PLUS" size="SIZE_4" @click="doCreateToken" />
   </div>

@@ -1,4 +1,10 @@
 
+export interface ChangePasswordParameters {
+  login: string;
+  new_password: string;
+  password: string;
+}
+
 export interface Credential {
   login: string;
   password: string;

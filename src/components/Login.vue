@@ -7,7 +7,7 @@
                 @click.prevent="useTwitch">
           <span>
             <font-awesome-icon :icon="['fab','twitch']" class="mr-3"/>
-            Continue with Twitch
+            {{$t("login.openid.twitch-msg")}}
           </span>
         </button>
 
@@ -43,7 +43,7 @@
           <button id="submit"
                   class="p-2 pl-4 pr-4 rounded font-bold"
                   :class="{'bg-blue-400 text-white': formValid, 'bg-gray-100 text-black': !formValid}">
-            {{$t('Login')}}
+            {{$t('login.button.login')}}
           </button>
         </div>
       </form>

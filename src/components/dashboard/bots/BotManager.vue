@@ -1,5 +1,5 @@
 <template xmlns="http://www.w3.org/1999/html">
-  <div class="text-3xl">Bots</div>
+  <div class="text-3xl">{{ $t("bots.title") }}</div>
   <div>
     <Icon type="PLUS" size="SIZE_4" @click="doCreateBot"/>
   </div>

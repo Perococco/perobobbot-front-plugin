@@ -2,7 +2,7 @@ import type {AxiosRequestConfig, AxiosResponse} from 'axios';
 import type {CreateUserParameters, Extension, UpdateUserParameters} from './data-com';
 import type {Bot, Platform} from './perobobbot-lang';
 import type {CreateBotParameters, OAuthInfo, OAuthProcessParameter, RestUserToken} from './rest-com';
-import type {Credential, JwtInfo, SimpleUser} from './security-com';
+import type {ChangePasswordParameters, Credential, JwtInfo, SimpleUser} from './security-com';
 import axios from "axios";
 
 export class BotController {
@@ -166,6 +166,20 @@ export class PluginController {
 export class SecurityController {
     baseURL: URL;
 
+
+    public changePassword(parameters: ChangePasswordParameters): Promise<AxiosResponse> {
+        const url = new URL('/api/password', this.baseURL);
+
+        const config: AxiosRequestConfig = {
+            method: 'put',
+            url: url.toString(),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: JSON.stringify(parameters)
+        };
+        return axios(config);
+    }
 
     public constructor(baseURL: URL = new URL(window.document.URL)) {
         this.baseURL = baseURL;
