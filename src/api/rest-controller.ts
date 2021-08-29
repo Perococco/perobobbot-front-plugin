@@ -168,10 +168,10 @@ export class SecurityController {
 
 
     public changePassword(parameters: ChangePasswordParameters): Promise<AxiosResponse> {
-        const url = new URL('/api/password', this.baseURL);
+        const url = new URL('/api/password_change', this.baseURL);
 
         const config: AxiosRequestConfig = {
-            method: 'put',
+            method: 'post',
             url: url.toString(),
             headers: {
                 'Content-Type': 'application/json'

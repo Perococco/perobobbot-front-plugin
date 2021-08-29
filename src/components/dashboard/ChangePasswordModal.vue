@@ -105,7 +105,7 @@ export default class ChangePasswordModal extends Vue {
     if (login === undefined || !this.formValid) {
       return;
     }
-    securityController.changePassword({login: login, password: this.currentPassword, new_password: this.newPassword})
+    securityController.changePassword({password: this.currentPassword, new_password: this.newPassword})
         .then((r) => {
           clearAllAuthenticationInformation();
           router.push(Routes.HOME)
