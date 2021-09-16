@@ -1,19 +1,18 @@
-
 export interface CreateUserParameters {
-  identification: any;
-  login: string;
+    identification: any;
+    login: string;
 }
 
 export interface Extension {
-  activated: boolean;
-  name: string;
+    activated: boolean;
+    name: string;
 }
 
 export enum PromotionManager {
-INSTANCE = 'INSTANCE'
+    INSTANCE = 'INSTANCE'
 }
 
 export interface UpdateUserParameters {
-  language_tag: string | string | null;
+    language_tag: string | string | null;
 }
 
