@@ -1,6 +1,6 @@
 
 import jplugman.api.Plugin;
-import perobobbot.plugin.dashboard.FrontEndPlugin;
+import perobobbot.plugin.dashboard.JPlugin;
 
 module perobobbot.plugin.dashboard {
     requires static lombok;
@@ -15,5 +15,5 @@ module perobobbot.plugin.dashboard {
     requires perobobbot.messaging;
     requires perobobbot.data.service;
 
-    provides Plugin with FrontEndPlugin;
+    provides Plugin with JPlugin;
 }

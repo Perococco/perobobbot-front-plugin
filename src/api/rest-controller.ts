@@ -1,9 +1,52 @@
 import type {AxiosRequestConfig, AxiosResponse} from 'axios';
-import type {CreateUserParameters, Extension, UpdateUserParameters} from './data-com';
+import type {
+    BotExtension,
+    CreateUserParameters,
+    Extension,
+    UpdateBotExtensionParameters,
+    UpdateExtensionParameters,
+    UpdateUserParameters
+} from './data-com';
 import type {Bot, Platform} from './perobobbot-lang';
-import type {CreateBotParameters, OAuthInfo, OAuthProcessParameter, RestUserToken} from './rest-com';
-import type {ChangePasswordParameters, Credential, JwtInfo, SimpleUser} from './security-com';
+import type {CreateBotParameters, OAuthProcessParameter, RestUserToken} from './rest-com';
+import type {ChangePasswordParameters, Credential, JwtInfo, OAuthInfo, SimpleUser} from './security-com';
 import axios from "axios";
+import {prepare_url} from "@/api/url-preparator";
+
+
+export class AuthUserController {
+    baseURL: URL;
+
+
+    public constructor(baseURL: URL = new URL(window.document.URL)) {
+        this.baseURL = baseURL;
+    }
+
+    public getCurrentUser(): Promise<SimpleUser> {
+        const preparedUrl = prepare_url('/api/user', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
+
+        const config: AxiosRequestConfig = {
+            method: 'get',
+            url: url.toString()
+        };
+        return axios(config).then(res => res.data);
+    }
+
+    public getExtensions(): Promise<BotExtension[]> {
+        const preparedUrl = prepare_url('/api/user/extensions', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
+
+        const config: AxiosRequestConfig = {
+            method: 'get',
+            url: url.toString()
+        };
+        return axios(config).then(res => res.data);
+    }
+
+}
 
 export class BotController {
     baseURL: URL;
@@ -14,7 +57,9 @@ export class BotController {
     }
 
     public createBot(parameters: CreateBotParameters): Promise<Bot> {
-        const url = new URL('/api/bots', this.baseURL);
+        const preparedUrl = prepare_url('/api/bots', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
 
         const config: AxiosRequestConfig = {
             method: 'post',
@@ -28,7 +73,9 @@ export class BotController {
     }
 
     public deleteBot(id: string): Promise<AxiosResponse> {
-        const url = new URL('/api/bots/' + id + '', this.baseURL);
+        const preparedUrl = prepare_url('/api/bots/' + id + '', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
 
         const config: AxiosRequestConfig = {
             method: 'delete',
@@ -38,7 +85,21 @@ export class BotController {
     }
 
     public listBots(): Promise<Bot[]> {
-        const url = new URL('/api/bots', this.baseURL);
+        const preparedUrl = prepare_url('/api/bots', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
+
+        const config: AxiosRequestConfig = {
+            method: 'get',
+            url: url.toString()
+        };
+        return axios(config).then(res => res.data);
+    }
+
+    public listExtensions(id: string): Promise<BotExtension[]> {
+        const preparedUrl = prepare_url('/api/bots/' + id + '/extensions', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
 
         const config: AxiosRequestConfig = {
             method: 'get',
@@ -48,11 +109,39 @@ export class BotController {
     }
 
     public listUserBots(login: string): Promise<Bot[]> {
-        const url = new URL('/api/bots/' + login + '', this.baseURL);
+        const preparedUrl = prepare_url('/api/bots/' + login + '', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
 
         const config: AxiosRequestConfig = {
             method: 'get',
             url: url.toString()
+        };
+        return axios(config).then(res => res.data);
+    }
+
+}
+
+export class BotExtensionController {
+    baseURL: URL;
+
+
+    public constructor(baseURL: URL = new URL(window.document.URL)) {
+        this.baseURL = baseURL;
+    }
+
+    public updateExtension(botId: string, extensionId: string, parameters: UpdateBotExtensionParameters): Promise<BotExtension> {
+        const preparedUrl = prepare_url('/api/bot-extensions/' + botId + '/' + extensionId + '', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
+
+        const config: AxiosRequestConfig = {
+            method: 'put',
+            url: url.toString(),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: JSON.stringify(parameters)
         };
         return axios(config).then(res => res.data);
     }
@@ -68,7 +157,9 @@ export class ClientController {
     }
 
     public createClient(parameter: any): Promise<any> {
-        const url = new URL('/api/clients', this.baseURL);
+        const preparedUrl = prepare_url('/api/clients', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
 
         const config: AxiosRequestConfig = {
             method: 'put',
@@ -82,7 +173,9 @@ export class ClientController {
     }
 
     public listClients(): Promise<any[]> {
-        const url = new URL('/api/clients', this.baseURL);
+        const preparedUrl = prepare_url('/api/clients', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
 
         const config: AxiosRequestConfig = {
             method: 'get',
@@ -102,11 +195,29 @@ export class ExtensionController {
     }
 
     public listExtensions(): Promise<Extension[]> {
-        const url = new URL('/api/extensions', this.baseURL);
+        const preparedUrl = prepare_url('/api/extensions', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
 
         const config: AxiosRequestConfig = {
             method: 'get',
             url: url.toString()
+        };
+        return axios(config).then(res => res.data);
+    }
+
+    public updateExtension(extensionId: string, parameters: UpdateExtensionParameters): Promise<Extension> {
+        const preparedUrl = prepare_url('/api/extensions/' + extensionId + '', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
+
+        const config: AxiosRequestConfig = {
+            method: 'put',
+            url: url.toString(),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: JSON.stringify(parameters)
         };
         return axios(config).then(res => res.data);
     }
@@ -122,7 +233,9 @@ export class I18nController {
     }
 
     public getAvailableLanguageTags(): Promise<string[]> {
-        const url = new URL('/api/dictionaries', this.baseURL);
+        const preparedUrl = prepare_url('/api/dictionaries', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
 
         const config: AxiosRequestConfig = {
             method: 'get',
@@ -132,7 +245,9 @@ export class I18nController {
     }
 
     public getDictionary(languageTag: string): Promise<{ [key: string]: string }> {
-        const url = new URL('/api/dictionaries/' + languageTag + '', this.baseURL);
+        const preparedUrl = prepare_url('/api/dictionaries/' + languageTag + '', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
 
         const config: AxiosRequestConfig = {
             method: 'get',
@@ -152,7 +267,9 @@ export class PluginController {
     }
 
     public getPluginTemplate(type: string, groupId: string, artifactId: string): Promise<AxiosResponse> {
-        const url = new URL('/api/plugin/' + type + ':' + groupId + ':' + artifactId + '', this.baseURL);
+        const preparedUrl = prepare_url('/api/plugin/' + type + ':' + groupId + ':' + artifactId + '', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
 
         const config: AxiosRequestConfig = {
             method: 'get',
@@ -168,7 +285,9 @@ export class SecurityController {
 
 
     public changePassword(parameters: ChangePasswordParameters): Promise<AxiosResponse> {
-        const url = new URL('/api/password_change', this.baseURL);
+        const preparedUrl = prepare_url('/api/password_change', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
 
         const config: AxiosRequestConfig = {
             method: 'post',
@@ -185,18 +304,10 @@ export class SecurityController {
         this.baseURL = baseURL;
     }
 
-    public getCurrentUser(): Promise<SimpleUser> {
-        const url = new URL('/api/user', this.baseURL);
-
-        const config: AxiosRequestConfig = {
-            method: 'get',
-            url: url.toString()
-        };
-        return axios(config).then(res => res.data);
-    }
-
     public getOpenIdUser(id: string): Promise<JwtInfo> {
-        const url = new URL('/api/oauth/' + id + '', this.baseURL);
+        const preparedUrl = prepare_url('/api/oauth/' + id + '', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
 
         const config: AxiosRequestConfig = {
             method: 'get',
@@ -206,7 +317,9 @@ export class SecurityController {
     }
 
     public oauthWith(openIdPlatform: Platform): Promise<OAuthInfo> {
-        const url = new URL('/api/oauth', this.baseURL);
+        const preparedUrl = prepare_url('/api/oauth', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
 
         const config: AxiosRequestConfig = {
             method: 'post',
@@ -220,7 +333,9 @@ export class SecurityController {
     }
 
     public signIn(credential: Credential): Promise<JwtInfo> {
-        const url = new URL('/api/signin', this.baseURL);
+        const preparedUrl = prepare_url('/api/signin', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
 
         const config: AxiosRequestConfig = {
             method: 'post',
@@ -234,7 +349,9 @@ export class SecurityController {
     }
 
     public signUp(parameters: CreateUserParameters): Promise<SimpleUser> {
-        const url = new URL('/api/signup', this.baseURL);
+        const preparedUrl = prepare_url('/api/signup', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
 
         const config: AxiosRequestConfig = {
             method: 'post',
@@ -258,7 +375,9 @@ export class TokenController {
     }
 
     public deleteUserToken(tokenId: string): Promise<AxiosResponse> {
-        const url = new URL('/api/tokens/' + tokenId + '', this.baseURL);
+        const preparedUrl = prepare_url('/api/tokens/' + tokenId + '', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
 
         const config: AxiosRequestConfig = {
             method: 'delete',
@@ -268,7 +387,9 @@ export class TokenController {
     }
 
     public getUserToken(): Promise<RestUserToken[]> {
-        const url = new URL('/api/tokens', this.baseURL);
+        const preparedUrl = prepare_url('/api/tokens', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
 
         const config: AxiosRequestConfig = {
             method: 'get',
@@ -278,7 +399,9 @@ export class TokenController {
     }
 
     public initiateOAuth(parameter: OAuthProcessParameter): Promise<string> {
-        const url = new URL('/api/tokens/oauth', this.baseURL);
+        const preparedUrl = prepare_url('/api/tokens/oauth', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
 
         const config: AxiosRequestConfig = {
             method: 'post',
@@ -292,7 +415,9 @@ export class TokenController {
     }
 
     public refreshUserToken(tokenId: string): Promise<RestUserToken> {
-        const url = new URL('/api/tokens/' + tokenId + '', this.baseURL);
+        const preparedUrl = prepare_url('/api/tokens/' + tokenId + '', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
 
         const config: AxiosRequestConfig = {
             method: 'put',
@@ -312,7 +437,9 @@ export class UserController {
     }
 
     public createUser(parameters: CreateUserParameters): Promise<SimpleUser> {
-        const url = new URL('/api/users', this.baseURL);
+        const preparedUrl = prepare_url('/api/users', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
 
         const config: AxiosRequestConfig = {
             method: 'post',
@@ -326,7 +453,9 @@ export class UserController {
     }
 
     public getUserByLogin(login: string): Promise<SimpleUser> {
-        const url = new URL('/api/users/' + login + '', this.baseURL);
+        const preparedUrl = prepare_url('/api/users/' + login + '', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
 
         const config: AxiosRequestConfig = {
             method: 'get',
@@ -336,7 +465,9 @@ export class UserController {
     }
 
     public getUserTokens(login: string): Promise<RestUserToken[]> {
-        const url = new URL('/api/users/' + login + '/tokens', this.baseURL);
+        const preparedUrl = prepare_url('/api/users/' + login + '/tokens', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
 
         const config: AxiosRequestConfig = {
             method: 'get',
@@ -346,17 +477,9 @@ export class UserController {
     }
 
     public listAllUsers(): Promise<SimpleUser[]> {
-        const url = new URL('/api/users', this.baseURL);
+        const preparedUrl = prepare_url('/api/users', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
 
-        const config: AxiosRequestConfig = {
-            method: 'get',
-            url: url.toString()
-        };
-        return axios(config).then(res => res.data);
-    }
-
-    public sayHello(): Promise<string> {
-        const url = new URL('/api/users/', this.baseURL);
 
         const config: AxiosRequestConfig = {
             method: 'get',
@@ -366,7 +489,9 @@ export class UserController {
     }
 
     public updateUser(login: string, parameters: UpdateUserParameters): Promise<SimpleUser> {
-        const url = new URL('/api/users/' + login + '', this.baseURL);
+        const preparedUrl = prepare_url('/api/users/' + login + '', this.baseURL);
+        const url = new URL(preparedUrl, this.baseURL);
+
 
         const config: AxiosRequestConfig = {
             method: 'patch',

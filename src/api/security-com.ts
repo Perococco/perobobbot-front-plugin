@@ -18,6 +18,11 @@ export interface JwtInfo {
     user: SimpleUser;
 }
 
+export interface OAuthInfo {
+    oauth_uri: string;
+    sign_in_id: string;
+}
+
 export enum Operation {
     READ_CREDENTIALS = 'READ_CREDENTIALS'
 }
@@ -34,6 +39,7 @@ export enum RoleKind {
 
 export interface SimpleUser {
     deactivated: boolean;
+    identification_mode: IdentificationMode;
     locale: string;
     login: string;
     roles: RoleKind[];

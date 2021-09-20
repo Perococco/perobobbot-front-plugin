@@ -1,28 +1,28 @@
 package perobobbot.plugin.dashboard;
 
-import com.google.common.collect.ImmutableSet;
-import jplugman.api.Plugin;
-import jplugman.api.Requirement;
-import jplugman.api.ServiceProvider;
-import jplugman.api.Version;
+import jplugman.annotation.Extension;
+import lombok.Getter;
 import lombok.NonNull;
+import perobobbot.plugin.PerobobbotPlugin;
+import perobobbot.plugin.WebPluginData;
 
-public class FrontEndPlugin implements Plugin {
+@Extension(point = PerobobbotPlugin.class, version = "1.0.0")
+public class FrontEndPlugin implements PerobobbotPlugin {
 
-    private static final Version VERSION = Version.with("1.0.0");
+    @Getter
+    private final WebPluginData data;
 
-    @Override
-    public @NonNull ImmutableSet<Requirement<?>> getRequirements() {
-        return ImmutableSet.of();
+    public FrontEndPlugin() {
+        this.data = new WebPluginData(
+                FrontEndConfig.VIEW_INFORMATION,
+                FrontEndConfig.RESOURCE_LOCATIONS,
+                FrontEndConfig.class.getClassLoader()
+        );
     }
 
     @Override
-    public @NonNull Class<?> getServiceClass() {
-        return FrontEndConfig.class;
+    public @NonNull String getName() {
+        return "Front";
     }
 
-    @Override
-    public @NonNull Object loadService(@NonNull ModuleLayer pluginLayer, @NonNull ServiceProvider serviceProvider) {
-        return new FrontEndConfig();
-    }
 }
