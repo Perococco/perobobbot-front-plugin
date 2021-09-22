@@ -6,7 +6,6 @@ export interface CreateBotParameters {
 
 export interface OAuthProcessParameter {
     platform: Platform;
-    scopes: string[];
 }
 
 export interface RestUserToken {

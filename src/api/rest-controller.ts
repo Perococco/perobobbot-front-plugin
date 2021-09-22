@@ -8,11 +8,10 @@ import type {
     UpdateUserParameters
 } from './data-com';
 import type {Bot, Platform} from './perobobbot-lang';
-import type {CreateBotParameters, OAuthProcessParameter, RestUserToken} from './rest-com';
+import type {CreateBotParameters, RestUserToken} from './rest-com';
 import type {ChangePasswordParameters, Credential, JwtInfo, OAuthInfo, SimpleUser} from './security-com';
 import axios from "axios";
 import {prepare_url} from "@/api/url-preparator";
-
 
 export class AuthUserController {
     baseURL: URL;
@@ -398,7 +397,7 @@ export class TokenController {
         return axios(config).then(res => res.data);
     }
 
-    public initiateOAuth(parameter: OAuthProcessParameter): Promise<string> {
+    public initiateOAuth(platform: Platform): Promise<string> {
         const preparedUrl = prepare_url('/api/tokens/oauth', this.baseURL);
         const url = new URL(preparedUrl, this.baseURL);
 
@@ -409,7 +408,7 @@ export class TokenController {
             headers: {
                 'Content-Type': 'application/json'
             },
-            data: JSON.stringify(parameter)
+            data: JSON.stringify(platform)
         };
         return axios(config).then(res => res.data);
     }
