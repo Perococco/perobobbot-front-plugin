@@ -24,17 +24,17 @@ const UserModule: Module<UserState, RootState> = {
     }),
 
     getters: {
-        [UserGetters.USER]: (state): SimpleUser | undefined => state.user,
-        [UserGetters.LOGIN]: (state): string | undefined => state.user?.login,
-        [UserGetters.ADMIN]: (state): boolean  => Optional.ofNullable(state.user).map(isAdmin).orElse(false),
-        [UserGetters.AUTHENTICATED]: (state): boolean => state.user != undefined,
+        [UserGetters.USER]: (state:UserState): SimpleUser | undefined => state.user,
+        [UserGetters.LOGIN]: (state:UserState): string | undefined => state.user?.login,
+        [UserGetters.ADMIN]: (state:UserState): boolean  => Optional.ofNullable(state.user).map(isAdmin).orElse(false),
+        [UserGetters.AUTHENTICATED]: (state:UserState): boolean => state.user != undefined,
     },
 
     mutations: {
-        [UserMutations.SET_USER](state, user: SimpleUser) {
+        [UserMutations.SET_USER](state:UserState, user: SimpleUser) {
             state.user = user
         },
-        [UserMutations.CLEAR_USER](state) {
+        [UserMutations.CLEAR_USER](state:UserState) {
             state.user = undefined
         },
     },
