@@ -24,12 +24,19 @@ import {UserGetters} from "@/store/modules/user/type";
 import {SimpleUser} from "@/api/security-com";
 import {clearAllAuthenticationInformation} from "@/auth"
 import router, {dashboardRoute, DashboardRoutes, Routes} from "@/router"
+import {JWT_TOKEN_KEY} from "@/constants";
+import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
+import {Optional} from "@/utils/optional";
+import {prepare_url} from "@/api/url-preparator";
 
+const EventSource = NativeEventSource || EventSourcePolyfill;
 const UserNamespace = namespace(Namespaces.USER);
 
 
 @Options({})
 export default class Secured extends Vue {
+
+  private eventSource : EventSource;
 
   userHomeRoute(): string {
     return dashboardRoute(DashboardRoutes.WELCOME)
@@ -49,6 +56,42 @@ export default class Secured extends Vue {
     clearAllAuthenticationInformation()
     router.push(Routes.HOME)
   }
+
+  closeEventSource():void {
+    if (this.eventSource != undefined) {
+        this.eventSource.close();
+        this.eventSource = undefined;
+    }
+  }
+
+  beforeMount() {
+    this.closeEventSource();
+    const token = sessionStorage.getItem(JWT_TOKEN_KEY)
+    const sseUrl = prepare_url('/events/sse')
+    console.log("Token : ",token.length, sseUrl)
+    this.eventSource = new EventSourcePolyfill(sseUrl, {
+      headers: {
+        'Authorization': 'bearer ' + token
+      }
+    });
+    this.eventSource.addEventListener("application-event",function(e) {
+      console.log("application-event : ",e)
+    });
+    this.eventSource.addEventListener("notification",function(e) {
+      console.log("notification : ",e)
+    });
+    this.eventSource.addEventListener("chat-message",function(e) {
+      console.log("chat-message : ",e)
+    });
+    this.eventSource.addEventListener("message",function(e) {
+      console.log("message : ",e)
+    });
+  }
+
+  beforeUnmount() {
+    this.closeEventSource();
+  }
+
 
 }
 </script>

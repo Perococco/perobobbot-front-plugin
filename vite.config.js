@@ -9,9 +9,14 @@ export default defineConfig({
     server: {
         proxy: {
             '/api': {
-                target: 'https://192.168.42.25:8443',
+                target: 'https://femtoparsec.net/bot',
                 changeOrigin: true,
-                secure: false,
+                secure: true,
+            },
+            '/events': {
+                target: 'https://femtoparsec.net/bot',
+                changeOrigin: true,
+                secure: true,
             }
         }
     },
