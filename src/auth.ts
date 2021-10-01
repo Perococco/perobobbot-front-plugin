@@ -1,7 +1,7 @@
 import {Namespaces} from "@/store/namespaces";
 import axios, {AxiosResponse} from 'axios'
 import {JWT_TOKEN_KEY} from '@/constants'
-import {SecurityController} from '@/api/rest-controller'
+import {AuthUserController, SecurityController} from '@/api/rest-controller'
 import {JwtInfo} from '@/api/security-com'
 import store from '@/store'
 import {UserActions} from '@/store/modules/user/type'
@@ -12,7 +12,7 @@ interface Context {
     internalCall: boolean;
 }
 
-const securityController = new SecurityController()
+const authUserController = new AuthUserController()
 const context: Context = {internalCall: false};
 
 function persistJwtToken(jwt: JwtInfo, rememberMe: boolean) {
@@ -62,7 +62,7 @@ function rejectedOnFailedAuthentication(response: AxiosResponse): Promise<boolea
     if (response.status != 403) {
         return Promise.resolve(false)
     }
-    return securityController.getCurrentUser()
+    return authUserController.getCurrentUser()
         .then(u => false)
         .catch(e => true);
 }
@@ -80,7 +80,7 @@ function clearAllJwtTokens() {
 
 async function retrieveCurrentUser(): Promise<boolean> {
     if (jwtIsPresentInSessionStorage()) {
-        return securityController.getCurrentUser().then(
+        return authUserController.getCurrentUser().then(
             async (user) => {
                 await store.dispatch(
                     Namespaces.USER + '/' + UserActions.SET_USER,
