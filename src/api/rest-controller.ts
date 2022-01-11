@@ -1,17 +1,16 @@
 import type {AxiosRequestConfig, AxiosResponse} from 'axios';
 import type {
     BotExtension,
+    CreateClientParameter,
     CreateUserParameters,
     Extension,
     UpdateBotExtensionParameters,
     UpdateExtensionParameters,
     UpdateUserParameters
 } from './data-com';
-import type {Bot, Platform} from './perobobbot-lang';
+import type {Bot, Platform, SafeClient} from './perobobbot-lang';
 import type {CreateBotParameters, RestUserToken} from './rest-com';
 import type {ChangePasswordParameters, Credential, JwtInfo, OAuthInfo, SimpleUser} from './security-com';
-import axios from "axios";
-import {prepare_url} from "@/api/url-preparator";
 
 export class AuthUserController {
     baseURL: URL;
@@ -155,7 +154,7 @@ export class ClientController {
         this.baseURL = baseURL;
     }
 
-    public createClient(parameter: any): Promise<any> {
+    public createClient(parameter: CreateClientParameter): Promise<SafeClient> {
         const preparedUrl = prepare_url('/api/clients', this.baseURL);
         const url = new URL(preparedUrl, this.baseURL);
 
@@ -171,7 +170,7 @@ export class ClientController {
         return axios(config).then(res => res.data);
     }
 
-    public listClients(): Promise<any[]> {
+    public listClients(): Promise<{ [key: string]: SafeClient }> {
         const preparedUrl = prepare_url('/api/clients', this.baseURL);
         const url = new URL(preparedUrl, this.baseURL);
 
@@ -304,13 +303,17 @@ export class SecurityController {
     }
 
     public getOpenIdUser(id: string): Promise<JwtInfo> {
-        const preparedUrl = prepare_url('/api/oauth/' + id + '', this.baseURL);
+        const preparedUrl = prepare_url('/api/oauth/openId', this.baseURL);
         const url = new URL(preparedUrl, this.baseURL);
 
 
         const config: AxiosRequestConfig = {
-            method: 'get',
-            url: url.toString()
+            method: 'post',
+            url: url.toString(),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: JSON.stringify(id)
         };
         return axios(config).then(res => res.data);
     }

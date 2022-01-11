@@ -1,3 +1,9 @@
+export interface Authentication {
+    mode: IdentificationMode;
+    open_id_platform: Platform | Platform | null;
+    password: string | string | null;
+}
+
 export interface ChangePasswordParameters {
     new_password: string;
     password: string;

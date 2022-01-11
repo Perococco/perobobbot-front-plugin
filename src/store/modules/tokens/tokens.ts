@@ -75,7 +75,7 @@ const TokensModule: Module<TokenState, RootState> = {
             context: TokenContext,
             parameter: OAuthProcessParameter
         ): Promise<void> {
-            const url = await tokenController.initiateOAuth(parameter)
+            const url = await tokenController.initiateOAuth(parameter.platform)
             openOauthUrlWithParam(url)
                 .then(() => {
                     context.dispatch(TokenActions.REFRESH_TOKENS)

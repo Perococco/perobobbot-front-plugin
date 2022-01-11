@@ -49,3 +49,21 @@ export function openOauthUrlWithParam<T>(url: string, param?:T): Promise<T> {
 
     return helper.promise
 }
+
+export function openOauthUrlWithParam2<T>(url: string, param?:T): Promise<T> {
+    const helper = new PromiseHelper<T>();
+
+    const win = window.open(url)
+    var interval = window.setInterval(function () {
+        try {
+            if (win == null || win.closed) {
+                window.clearInterval(interval)
+                helper.resolve(param)
+            }
+        } catch (e) {
+            helper.reject(e)
+        }
+    }, 1000)
+
+    return helper.promise
+}

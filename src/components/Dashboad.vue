@@ -74,6 +74,9 @@ export default class Secured extends Vue {
         'Authorization': 'bearer ' + token
       }
     });
+    this.eventSource.addEventListener("ping",function(e) {
+      console.log("ping : ",e)
+    });
     this.eventSource.addEventListener("application-event",function(e) {
       console.log("application-event : ",e)
     });

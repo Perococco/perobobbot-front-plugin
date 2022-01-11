@@ -1,4 +1,5 @@
-import type {Bot} from './perobobbot-lang';
+import type {Bot, Platform} from './perobobbot-lang';
+import type {Authentication} from './security-com';
 
 export interface BotExtension {
     bot: Bot;
@@ -6,8 +7,14 @@ export interface BotExtension {
     extension: Extension;
 }
 
+export interface CreateClientParameter {
+    client_id: string;
+    client_secret: any;
+    platform: Platform;
+}
+
 export interface CreateUserParameters {
-    identification: any;
+    authentication: Authentication;
     login: string;
 }
 
